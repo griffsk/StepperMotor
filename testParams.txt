@@ -1,0 +1,7 @@
+#Parameters for scan, separate all names from values by a space
+xOriginCm 0.0
+xMaxCm 100.0
+yOriginCm 20.0
+yMaxCm 50.0
+nStepsX 200
+nStepsY 60
