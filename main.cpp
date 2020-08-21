@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <cstdlib>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <map>
 #include <math.h>
@@ -182,6 +183,8 @@ int checkVarMap(map<string, double> varMap)
 
 int main(int argc, char* argv[])
 {
+	clock_t progStart, progEnd;
+	progStart = clock();
 	cout << "Starting!" << endl;
 
 	string paramFile = string(argv[1]);
@@ -442,7 +445,7 @@ int main(int argc, char* argv[])
 			file_4.close();
 
 			cout << "Data Collected" << endl;
-			Sleep(1000);
+			Sleep(2000);
 		}
 	}
 
@@ -466,6 +469,11 @@ int main(int argc, char* argv[])
 	PSERIAL_Send(2, 20, yvals[0]);
 
 	PSERIAL_Close();
+
+	progEnd = clock();
+	double timeElapsed = double(progEnd - progStart) / double(CLOCKS_PER_SEC);
+	cout << "Time elapsed: " << fixed << timeElapsed << setprecision(3);
+	cout << "sec" << endl;
 
 	return 0;
 }
