@@ -271,7 +271,7 @@ int main(int argc, char* argv[])
 	}
 
 	// Warns if step settings distort scan grid.
-	if (abs(xsteplengthcm - ysteplengthcm) > 5)
+	if (fabs(xsteplengthcm - ysteplengthcm) > 5)
 	{
 		cout << "Warning: Check Aspect Ratio." << endl;
 		cout << "Each step in X is " << xsteplengthcm << "cm" << endl;
@@ -357,13 +357,13 @@ int main(int argc, char* argv[])
 			}
 
 			// Determine sleeptime from largest travel in x or y for next step
-			if(abs(xcurrentpos - xvals[i]) > abs(ycurrentpos - yvals[j]))
+			if(fabs(xcurrentpos - xvals[i]) > fabs(ycurrentpos - yvals[j]))
 			{
-				sleeptime = 100*1000*(abs(xcurrentpos - xvals[i])/xmicrosteptot); //(length of drive in cm)*(ms/cm)*(fraction of drive)
+				sleeptime = 100*1000*(fabs(xcurrentpos - xvals[i])/xmicrosteptot); //(length of drive in cm)*(ms/cm)*(fraction of drive)
 			}
 			else
 			{
-				sleeptime = 50*1000*(abs(ycurrentpos - yvals[j])/ymicrosteptot); //(length of drive in cm)*(ms/cm)*(fraction of drive)
+				sleeptime = 50*1000*(fabs(ycurrentpos - yvals[j])/ymicrosteptot); //(length of drive in cm)*(ms/cm)*(fraction of drive)
 			}
 
 			// Move to next scan position
@@ -386,8 +386,8 @@ int main(int argc, char* argv[])
 			WriteIO(":TIMEBASE:SCALE 20E-9");
 			WriteIO(":TIMEBASE:POSITION 130E-9"); // LED
 			// New LED 375 nm
-			WriteIO(":CHANNEL1:SCALE 200E-3");
-			WriteIO(":CHANNEL1:OFFSET -650E-3");
+			WriteIO(":CHANNEL1:SCALE 500E-3");
+			WriteIO(":CHANNEL1:OFFSET -1300E-3");
 
 			// Get clock for time output
 			t = clock();
@@ -410,7 +410,7 @@ int main(int argc, char* argv[])
 				WriteIO(":ACQUIRE:AVERAGE ON");
 
 				// --- Measure the VMin for Channel 1
-				oscillo = iopen("gpib1,7");
+				//oscillo = iopen("gpib1,7");
 				WriteIO(":MEASURE:SOURCE CHANNEL1");
 				WriteIO(":MEASURE:VMIN");
 				WriteIO(":MEASURE:VMIN?");
@@ -445,7 +445,7 @@ int main(int argc, char* argv[])
 			file_4.close();
 
 			cout << "Data Collected" << endl;
-			Sleep(2000);
+			Sleep(500);
 		}
 	}
 
